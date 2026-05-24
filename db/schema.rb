@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_24_084520) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_24_084609) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "orders", force: :cascade do |t|
+    t.string "address", null: false
+    t.datetime "created_at", null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.string "recipient_name", null: false
+    t.string "recipient_phone", null: false
+    t.bigint "rider_id"
+    t.integer "status", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["rider_id"], name: "index_orders_on_rider_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -34,4 +47,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_24_084520) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role"], name: "index_users_on_role"
   end
+
+  add_foreign_key "orders", "users", column: "rider_id"
 end
