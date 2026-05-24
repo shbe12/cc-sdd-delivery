@@ -1,0 +1,31 @@
+<aside class="sidebar">
+  <div class="sidebar__brand">
+    <span class="sidebar__logo">🍕</span> PizzApp
+  </div>
+
+  <nav class="sidebar__nav">
+    <% if current_user.manager? %>
+      <%= link_to manager_orders_path, class: "sidebar__link #{'is-active' if controller_path == 'manager/orders'}" do %>
+        <i class="fa-solid fa-table-columns"></i> Tablero
+      <% end %>
+      <%= link_to new_manager_order_path, class: "sidebar__link" do %>
+        <i class="fa-solid fa-plus"></i> Nueva orden
+      <% end %>
+    <% else %>
+      <%= link_to rider_orders_path, class: "sidebar__link #{'is-active' if controller_path == 'rider/orders'}" do %>
+        <i class="fa-solid fa-box"></i> Mis entregas
+      <% end %>
+    <% end %>
+  </nav>
+
+  <div class="sidebar__foot">
+    <div class="sidebar__user">
+      <div class="sidebar__avatar"><%= current_user.email.first(2).upcase %></div>
+      <div>
+        <div class="sidebar__name"><%= current_user.email.split("@").first %></div>
+        <div class="sidebar__role"><%= current_user.manager? ? "Manager" : "Rider" %></div>
+      </div>
+    </div>
+    <%= link_to "Salir", destroy_user_session_path, data: { turbo_method: :delete }, class: "sidebar__logout" %>
+  </div>
+</aside>

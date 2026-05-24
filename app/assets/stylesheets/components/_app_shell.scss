@@ -1,0 +1,62 @@
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  padding: 14px;
+  gap: 14px;
+  background:
+    radial-gradient(1100px 480px at 100% -12%, rgba($brand, 0.08), transparent 65%),
+    radial-gradient(820px 420px at -8% 116%, rgba($assigned, 0.07), transparent 62%),
+    $bg;
+}
+
+.app-shell__main { flex: 1; min-width: 0; }
+
+.sidebar {
+  width: 228px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 15px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #1C1F27, #121319);
+  color: #C0C5D1;
+  box-shadow: 0 2px 4px rgba(20, 22, 30, 0.05), 0 12px 28px rgba(20, 22, 30, 0.10);
+
+  &__brand {
+    display: flex; align-items: center; gap: 11px;
+    color: #fff; font-family: $headers-font; font-weight: 800; font-size: 19px;
+    padding: 2px 8px 26px;
+  }
+  &__logo {
+    width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center;
+    background: linear-gradient(140deg, $brand, lighten($brand, 18%));
+    box-shadow: 0 8px 20px rgba($brand, 0.45);
+  }
+  &__nav { display: flex; flex-direction: column; gap: 4px; }
+  &__link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 13px; border-radius: 13px;
+    color: #969CAA; text-decoration: none; font-weight: 500; font-size: 14px;
+    transition: background 0.18s, color 0.18s;
+    &:hover { color: #fff; background: rgba(255, 255, 255, 0.05); }
+    &.is-active { color: #fff; background: rgba($brand, 0.18); }
+  }
+  &__foot { margin-top: auto; }
+  &__user {
+    display: flex; align-items: center; gap: 11px;
+    padding: 11px; border-radius: 15px;
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  &__avatar {
+    width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center;
+    color: #fff; font-weight: 700; font-size: 12px;
+    background: linear-gradient(135deg, #5B72E8, #9B5BE8);
+  }
+  &__name { color: #fff; font-size: 13px; font-weight: 600; }
+  &__role { color: #7F8694; font-size: 11px; }
+  &__logout {
+    display: block; margin-top: 12px; text-align: center;
+    color: #969CAA; font-size: 13px; text-decoration: none;
+    &:hover { color: #fff; }
+  }
+}
