@@ -28,6 +28,21 @@ module Manager
       end
     end
 
+    def show
+      @order = Order.includes(order_items: :product).find(params[:id])
+      @riders = User.rider.order(:email)
+    end
+
+    def update
+      @order = Order.find(params[:id])
+      rider = User.rider.find(params.dig(:order, :rider_id))
+      if @order.assign_to!(rider)
+        redirect_to manager_order_path(@order), notice: "Rider asignado."
+      else
+        redirect_to manager_order_path(@order), alert: "No se pudo asignar el rider."
+      end
+    end
+
     private
 
     def order_params

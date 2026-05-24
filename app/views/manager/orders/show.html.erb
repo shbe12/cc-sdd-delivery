@@ -1,0 +1,50 @@
+<% content_for :title, "Orden de #{@order.recipient_name}" %>
+
+<div class="page-narrow order-detail">
+  <%= link_to "← Volver al tablero", manager_orders_path, class: "order-detail__back" %>
+
+  <header class="order-detail__head">
+    <h1 class="board__title"><%= @order.recipient_name %></h1>
+    <span class="status-pill status-pill--<%= @order.status %>">
+      <span class="status-pill__dot"></span>
+      <%= Manager::OrdersController::STATUS_LABELS[@order.status] %>
+    </span>
+  </header>
+
+  <p class="order-detail__line"><i class="fa-solid fa-phone"></i> <%= @order.recipient_phone %></p>
+  <p class="order-detail__line"><i class="fa-solid fa-location-dot"></i> <%= @order.address %></p>
+
+  <% if @order.latitude && @order.longitude %>
+    <div class="order-map"
+         data-controller="map"
+         data-map-api-key-value="<%= ENV["MAPBOX_API_KEY"] %>"
+         data-map-lat-value="<%= @order.latitude %>"
+         data-map-lng-value="<%= @order.longitude %>"></div>
+  <% end %>
+
+  <table class="order-items">
+    <tbody>
+      <% @order.order_items.each do |item| %>
+        <tr>
+          <td><%= item.quantity %>× <%= item.product.name %></td>
+          <td class="order-items__amount">$<%= number_with_delimiter(item.subtotal) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr><td>Total</td><td class="order-items__amount">$<%= number_with_delimiter(@order.total) %></td></tr>
+    </tfoot>
+  </table>
+
+  <div class="order-detail__rider">
+    <% if @order.rider %>
+      <p>Asignada a <strong><%= @order.rider.email %></strong></p>
+    <% elsif @order.pending? %>
+      <%= simple_form_for [ :manager, @order ], method: :patch do |f| %>
+        <%= f.association :rider, collection: @riders, label_method: :email, value_method: :id,
+              include_blank: "Elegí un rider", label: "Asignar rider" %>
+        <%= f.button :submit, "Asignar", class: "btn btn-brand" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

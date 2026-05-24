@@ -54,4 +54,19 @@ class ManagerOrdersTest < ActionDispatch::IntegrationTest
     end
     assert_response :unprocessable_entity
   end
+
+  test "show displays the order and an assign-rider form when pending" do
+    order = create_order(status: :pending)
+    get manager_order_path(order)
+    assert_response :success
+    assert_select "select[name='order[rider_id]']"
+  end
+
+  test "update assigns a rider and moves the order to assigned" do
+    order = create_order(status: :pending)
+    patch manager_order_path(order), params: { order: { rider_id: @rider.id } }
+    assert_redirected_to manager_order_path(order)
+    assert order.reload.assigned?
+    assert_equal @rider, order.rider
+  end
 end
