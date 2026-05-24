@@ -1,0 +1,31 @@
+<%= link_to manager_order_path(order), class: "order-card order-card--#{order.status}" do %>
+  <div class="order-card__top">
+    <span class="status-pill status-pill--<%= order.status %>">
+      <span class="status-pill__dot"></span>
+      <%= Manager::OrdersController::STATUS_LABELS[order.status] %>
+    </span>
+    <span class="order-card__time"><%= time_ago_in_words(order.created_at) %></span>
+  </div>
+
+  <div class="order-card__name"><%= order.recipient_name %></div>
+
+  <div class="order-card__addr">
+    <i class="fa-solid fa-location-dot"></i>
+    <%= order.address %>
+  </div>
+
+  <div class="order-card__items">
+    <%= order.order_items.map { |i| "#{i.quantity}× #{i.product.name}" }.join(" · ") %>
+  </div>
+
+  <hr class="order-card__sep">
+
+  <div class="order-card__bottom">
+    <% if order.rider %>
+      <span class="order-card__rider"><%= order.rider.email.split("@").first %></span>
+    <% else %>
+      <span class="order-card__unassigned">Sin asignar</span>
+    <% end %>
+    <span class="order-card__total">$<%= number_with_delimiter(order.total) %></span>
+  </div>
+<% end %>

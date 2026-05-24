@@ -1,0 +1,27 @@
+<% content_for :title, "Tablero de órdenes" %>
+
+<div class="board">
+  <header class="board__top">
+    <div>
+      <h1 class="board__title">Tablero de órdenes</h1>
+      <p class="board__sub"><%= Order.where.not(status: :delivered).count %> órdenes activas</p>
+    </div>
+    <%= link_to new_manager_order_path, class: "btn btn-brand" do %>
+      <i class="fa-solid fa-plus"></i> Nueva orden
+    <% end %>
+  </header>
+
+  <div class="kanban">
+    <% Order.statuses.each_key do |status| %>
+      <% orders = @orders_by_status[status] || [] %>
+      <section class="kanban-column kanban-column--<%= status %>">
+        <div class="kanban-column__head">
+          <span class="kanban-column__dot"></span>
+          <span class="kanban-column__title"><%= Manager::OrdersController::STATUS_LABELS[status] %></span>
+          <span class="kanban-column__count"><%= orders.size %></span>
+        </div>
+        <%= render partial: "card", collection: orders, as: :order %>
+      </section>
+    <% end %>
+  </div>
+</div>
