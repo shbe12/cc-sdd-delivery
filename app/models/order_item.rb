@@ -8,7 +8,7 @@ class OrderItem < ApplicationRecord
   validates :unit_price, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   def subtotal
-    (unit_price || 0) * (quantity || 0)
+    (unit_price || product&.price || 0) * (quantity || 0)
   end
 
   private
