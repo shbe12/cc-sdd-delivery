@@ -1,0 +1,17 @@
+<div class="order-line" data-order-form-target="line">
+  <%= f.association :product,
+        collection: products,
+        label_method: :name,
+        value_method: :id,
+        include_blank: "Elegí un producto",
+        label: false,
+        wrapper: false %>
+  <%= f.input :quantity,
+        label: false,
+        input_html: { value: f.object.quantity || 1, min: 1, class: "order-line__qty" },
+        wrapper: false %>
+  <%= f.input :_destroy, as: :hidden %>
+  <button type="button" class="order-line__remove" data-action="order-form#remove" aria-label="Quitar">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+</div>

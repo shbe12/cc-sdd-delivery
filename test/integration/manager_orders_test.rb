@@ -23,4 +23,35 @@ class ManagerOrdersTest < ActionDispatch::IntegrationTest
     assert_select ".kanban-column", 4
     assert_select ".order-card", 2
   end
+
+  test "new renders the order form" do
+    get new_manager_order_path
+    assert_response :success
+    assert_select "form"
+    assert_select "input[name='order[recipient_name]']"
+  end
+
+  test "create persists an order with items and redirects to it" do
+    assert_difference [ "Order.count", "OrderItem.count" ], 1 do
+      post manager_orders_path, params: {
+        order: {
+          recipient_name: "Ana", recipient_phone: "55", address: "Colima 143, CDMX",
+          order_items_attributes: { "0" => { product_id: @product.id, quantity: "2" } }
+        }
+      }
+    end
+    order = Order.last
+    assert_redirected_to manager_order_path(order)
+    assert_equal 300, order.total            # 150 * 2 snapshot
+    assert_equal 150, order.order_items.first.unit_price
+  end
+
+  test "create re-renders with errors when invalid" do
+    assert_no_difference "Order.count" do
+      post manager_orders_path, params: {
+        order: { recipient_name: "", recipient_phone: "", address: "" }
+      }
+    end
+    assert_response :unprocessable_entity
+  end
 end

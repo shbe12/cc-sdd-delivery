@@ -1,0 +1,30 @@
+<%= simple_form_for [ :manager, @order ], html: { data: { controller: "order-form" }, class: "order-form" } do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= f.input :recipient_name, label: "Nombre del destinatario" %>
+  <%= f.input :recipient_phone, label: "Teléfono" %>
+  <%= f.input :address, label: "Dirección de entrega" %>
+
+  <fieldset class="order-form__items">
+    <legend>Productos</legend>
+
+    <div data-order-form-target="lines">
+      <%= f.simple_fields_for :order_items do |item| %>
+        <%= render "order_item_fields", f: item, products: @products %>
+      <% end %>
+    </div>
+
+    <template data-order-form-target="template">
+      <%= f.simple_fields_for :order_items, OrderItem.new, child_index: "NEW_RECORD" do |item| %>
+        <%= render "order_item_fields", f: item, products: @products %>
+      <% end %>
+    </template>
+
+    <button type="button" class="btn btn-outline-brand" data-action="order-form#add">
+      <i class="fa-solid fa-plus"></i> Agregar producto
+    </button>
+  </fieldset>
+
+  <%= f.button :submit, "Crear orden", class: "btn btn-brand" %>
+<% end %>
