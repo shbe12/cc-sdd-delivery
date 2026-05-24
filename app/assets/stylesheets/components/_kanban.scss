@@ -1,0 +1,26 @@
+.kanban {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: start;
+}
+
+.kanban-column {
+  border-radius: 20px; padding: 6px 8px 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.2));
+  border: 1px solid rgba(255, 255, 255, 0.6);
+
+  &__head { display: flex; align-items: center; gap: 9px; padding: 12px 10px 13px; }
+  &__dot { width: 8px; height: 8px; border-radius: 50%; }
+  &--pending   .kanban-column__dot { background: $pending; }
+  &--assigned  .kanban-column__dot { background: $assigned; }
+  &--en_route  .kanban-column__dot { background: $en-route; }
+  &--delivered .kanban-column__dot { background: $delivered; }
+  &__title { font-family: $headers-font; font-size: 13.5px; font-weight: 700; color: $ink-2; }
+  &__count {
+    margin-left: auto; font-size: 11.5px; font-weight: 700; color: $ink-2;
+    background: #fff; border: 1px solid $line; border-radius: 8px;
+    min-width: 24px; text-align: center; padding: 2px 7px;
+  }
+}
+
+@media (max-width: 900px) {
+  .kanban { grid-template-columns: 1fr 1fr; }
+}

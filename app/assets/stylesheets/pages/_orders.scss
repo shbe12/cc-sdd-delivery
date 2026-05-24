@@ -1,0 +1,50 @@
+.board__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.board__title { font-family: $headers-font; font-size: 23px; font-weight: 800; letter-spacing: -0.6px; }
+.board__sub { font-size: 13px; color: $muted; margin-top: 4px; }
+
+.btn-brand {
+  background: $brand; border: none; color: #fff; font-weight: 600; border-radius: 13px;
+  padding: 11px 17px;
+  box-shadow: 0 8px 18px rgba($brand, 0.30);
+  &:hover { background: darken($brand, 5%); color: #fff; }
+}
+.btn-outline-brand {
+  background: rgba($brand, 0.07); border: 1px dashed rgba($brand, 0.45);
+  color: $brand; font-weight: 700; border-radius: 10px; padding: 7px 13px;
+  &:hover { background: rgba($brand, 0.13); }
+}
+
+.page-narrow { max-width: 640px; }
+
+.order-form {
+  &__items { border: 0; margin: 18px 0; }
+  legend { font-size: 13px; font-weight: 700; color: $ink-2; }
+}
+.order-line {
+  display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px;
+  &__qty { max-width: 90px; }
+  &__remove { border: 0; background: transparent; color: $muted; cursor: pointer; padding: 10px; }
+}
+
+.order-detail {
+  &__back { font-size: 13px; color: $muted; text-decoration: none; }
+  &__head { display: flex; align-items: center; gap: 12px; margin: 8px 0 14px; }
+  &__line { color: $ink-2; i { color: $muted; margin-right: 6px; } }
+  &__rider, &__actions { margin-top: 18px; }
+}
+
+.order-map {
+  height: 260px; border-radius: 16px; overflow: hidden; margin: 14px 0;
+  border: 1px solid $line;
+}
+
+.order-items {
+  width: 100%; margin: 16px 0; border-collapse: collapse;
+  td { padding: 8px 0; border-bottom: 1px solid $line; }
+  &__amount { text-align: right; font-weight: 600; }
+  tfoot td { font-weight: 800; border-bottom: 0; }
+}
+
+.rider-list { display: grid; gap: 0; max-width: 460px; }
+.rider-list--muted { opacity: 0.85; }
+.empty-state { color: $muted; padding: 20px 0; }
