@@ -45,3 +45,9 @@
   0%   { transform: scale(0.4); opacity: 0.9; }
   100% { transform: scale(2);   opacity: 0; }
 }
+
+// Respect reduced-motion: the controller already skips the camera fly-in,
+// so stop the looping pulse ring too.
+@media (prefers-reduced-motion: reduce) {
+  .order-pin__pulse { animation: none; }
+}

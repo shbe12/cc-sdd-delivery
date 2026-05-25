@@ -41,7 +41,7 @@ export default class extends Controller {
     // One-time cinematic fly-in to the tilted view (skipped under reduced-motion).
     if (!reduceMotion) {
       this.map.on("load", () => {
-        this.map.easeTo({ center, ...finalView, duration: 2800, essential: true })
+        this.map.easeTo({ center, ...finalView, duration: 2800 })
       })
     }
 
