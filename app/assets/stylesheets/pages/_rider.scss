@@ -78,3 +78,100 @@
 
 // The rider list (Mis entregas) — relax the shared max-width on mobile.
 .rider-shell .rider-list { max-width: none; }
+
+// --- Order detail: map protagonist ---
+.rider-detail {
+  display: flex;
+  flex-direction: column;
+
+  &__back {
+    font-size: 13px;
+    color: $muted;
+    text-decoration: none;
+    margin-bottom: 12px;
+  }
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 14px 0 4px;
+  }
+  &__name {
+    margin: 0;
+    font-family: $headers-font;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  &__line {
+    color: $ink-2;
+    margin: 6px 0;
+    i { color: $muted; margin-right: 7px; }
+  }
+}
+
+// Map breaks out of the main padding (full-bleed) and is tall on mobile.
+.rider-shell .order-map {
+  height: 42vh;
+  min-height: 240px;
+  margin: 0 -16px 4px;
+  border: 0;
+  border-bottom: 1px solid $line;
+  border-radius: 0;
+}
+
+// Items as a list (replaces the <table>).
+.rider-items {
+  list-style: none;
+  margin: 16px 0;
+  padding: 0;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid $line;
+    color: $ink-2;
+  }
+  &__amount { font-weight: 600; white-space: nowrap; }
+  &__row--total {
+    border-bottom: 0;
+    color: $ink;
+    font-weight: 800;
+    font-size: 16px;
+  }
+}
+
+// Primary action fixed at the bottom (thumb reach), full width on mobile.
+.rider-detail__actions {
+  position: sticky;
+  bottom: 0;
+  margin: 8px -16px 0;
+  padding: 12px 16px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  background: linear-gradient(180deg, rgba($bg, 0), $bg 38%);
+
+  form { margin: 0; }
+  .rider-detail__cta { width: 100%; padding: 15px; font-size: 15px; }
+  .empty-state { text-align: center; padding: 14px 0; }
+}
+
+// --- Tablet / desktop: column layout, map inside the column, static action ---
+@media (min-width: 768px) {
+  .rider-shell .order-map {
+    height: 340px;
+    margin: 0 0 6px;
+    border: 1px solid $line;
+    border-radius: 16px;
+  }
+  .rider-detail__actions {
+    position: static;
+    margin: 18px 0 0;
+    padding: 0;
+    background: none;
+    .rider-detail__cta { width: auto; }
+  }
+}

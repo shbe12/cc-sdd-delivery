@@ -66,6 +66,23 @@ class RiderOrdersTest < ActionDispatch::IntegrationTest
     assert_select ".order-map[data-map-lng-value]"
   end
 
+  test "show renders order items as a list, not a table" do
+    order = create_order(rider: @rider, status: :assigned)
+    get rider_order_path(order)
+    assert_response :success
+    assert_select "ul.rider-items li.rider-items__row"
+    assert_select "li.rider-items__row--total", text: /Total/
+    assert_select "table.order-items", false
+  end
+
+  test "show has no call or navigate action buttons" do
+    order = create_order(rider: @rider, status: :assigned)
+    get rider_order_path(order)
+    assert_response :success
+    assert_select "a[href^='tel:']", false
+    assert_select "a[href*='google.com/maps']", false
+  end
+
   test "rider pages use the top-bar layout, not the shared sidebar" do
     order = create_order(rider: @rider, status: :assigned)
 
