@@ -56,4 +56,13 @@ class RiderOrdersTest < ActionDispatch::IntegrationTest
     assert_redirected_to rider_orders_path
     assert order.reload.assigned?
   end
+
+  test "show wires the order map element with destination coordinates" do
+    order = create_order(rider: @rider, status: :assigned)
+    get rider_order_path(order)
+    assert_response :success
+    assert_select ".order-map[data-controller='map']"
+    assert_select ".order-map[data-map-lat-value]"
+    assert_select ".order-map[data-map-lng-value]"
+  end
 end
