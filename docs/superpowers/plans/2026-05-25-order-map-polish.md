@@ -37,7 +37,7 @@ These guard the server-rendered contract the JS controller depends on (`.order-m
 - Modify: `test/integration/manager_orders_test.rb`
 - Modify: `test/integration/rider_orders_test.rb`
 
-- [ ] **Step 1: Add the manager wiring test**
+- [x] **Step 1: Add the manager wiring test**
 
 In `test/integration/manager_orders_test.rb`, add this test inside the class (e.g. after the existing `show ...` test, before the final `end`):
 
@@ -52,7 +52,7 @@ In `test/integration/manager_orders_test.rb`, add this test inside the class (e.
   end
 ```
 
-- [ ] **Step 2: Add the rider wiring test**
+- [x] **Step 2: Add the rider wiring test**
 
 In `test/integration/rider_orders_test.rb`, add this test inside the class (before the final `end`):
 
@@ -67,7 +67,7 @@ In `test/integration/rider_orders_test.rb`, add this test inside the class (befo
   end
 ```
 
-- [ ] **Step 3: Run the two new tests — expect PASS (guard for existing wiring)**
+- [x] **Step 3: Run the two new tests — expect PASS (guard for existing wiring)**
 
 Run:
 ```bash
@@ -75,7 +75,7 @@ bin/rails test test/integration/manager_orders_test.rb test/integration/rider_or
 ```
 Expected: all tests pass (the new ones included). If a new test FAILS, the view stopped rendering `.order-map` — fix the view wiring before continuing.
 
-- [ ] **Step 4: Run RuboCop on the changed test files**
+- [x] **Step 4: Run RuboCop on the changed test files**
 
 Run:
 ```bash
@@ -83,7 +83,7 @@ bin/rubocop test/integration/manager_orders_test.rb test/integration/rider_order
 ```
 Expected: no offenses.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add test/integration/manager_orders_test.rb test/integration/rider_orders_test.rb
@@ -100,7 +100,7 @@ A green teardrop pin (`$brand` = `#16A34A`, "verde albahaca") with a 🍕 glyph 
 - Create: `app/assets/stylesheets/components/_order_map_marker.scss`
 - Modify: `app/assets/stylesheets/components/_index.scss`
 
-- [ ] **Step 1: Create the marker component file**
+- [x] **Step 1: Create the marker component file**
 
 Create `app/assets/stylesheets/components/_order_map_marker.scss` with exactly:
 
@@ -154,7 +154,7 @@ Create `app/assets/stylesheets/components/_order_map_marker.scss` with exactly:
 }
 ```
 
-- [ ] **Step 2: Register the component in the index**
+- [x] **Step 2: Register the component in the index**
 
 In `app/assets/stylesheets/components/_index.scss`, add this line at the end (after `@import "navbar";`):
 
@@ -162,7 +162,7 @@ In `app/assets/stylesheets/components/_index.scss`, add this line at the end (af
 @import "order_map_marker";
 ```
 
-- [ ] **Step 3: Verify the stylesheet compiles**
+- [x] **Step 3: Verify the stylesheet compiles**
 
 Run:
 ```bash
@@ -170,7 +170,7 @@ bin/rails dartsass:build
 ```
 Expected: exits 0 with no Sass error (the new `@import` resolves and `$brand`/`rgba($brand, …)` compile). If `dartsass:build` is unavailable, instead confirm compilation when the server boots in Task 4 (a Sass error would 500 the page).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add app/assets/stylesheets/components/_order_map_marker.scss app/assets/stylesheets/components/_index.scss
@@ -186,7 +186,7 @@ Replace the controller body. Keeps the `apiKey` guard, the `values`, and `discon
 **Files:**
 - Modify: `app/javascript/controllers/map_controller.js`
 
-- [ ] **Step 1: Replace the controller with the new implementation**
+- [x] **Step 1: Replace the controller with the new implementation**
 
 Overwrite `app/javascript/controllers/map_controller.js` with exactly:
 
@@ -255,7 +255,7 @@ export default class extends Controller {
 }
 ```
 
-- [ ] **Step 2: Run the full Minitest suite — expect GREEN**
+- [x] **Step 2: Run the full Minitest suite — expect GREEN**
 
 Run:
 ```bash
@@ -263,7 +263,7 @@ bin/rails test
 ```
 Expected: all tests pass. No Ruby changed, so the suite (including Task 1's guards) stays green; this confirms the JS edit didn't break server-rendered behavior.
 
-- [ ] **Step 3: Run RuboCop — expect clean**
+- [x] **Step 3: Run RuboCop — expect clean**
 
 Run:
 ```bash
@@ -271,7 +271,7 @@ bin/rubocop
 ```
 Expected: no offenses. (RuboCop does not lint JS/SCSS; this confirms nothing Ruby regressed.)
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add app/javascript/controllers/map_controller.js
@@ -286,7 +286,7 @@ Verify the JS behavior against the running app for **both** roles. This is the r
 
 Requires `MAPBOX_API_KEY` in `.env` (present in dev).
 
-- [ ] **Step 1: Seed geocoded orders and boot the server**
+- [x] **Step 1: Seed geocoded orders and boot the server**
 
 ```bash
 bin/rails db:seed:replant
@@ -294,14 +294,14 @@ bin/dev
 ```
 Expected: seeds print "Done: 3 users, 5 products, 5 orders." and the server listens on http://localhost:3000. Seeded orders sit on the Paseo de la Reforma corridor (tall towers → 3D shows well). Login: manager `manager@pizzapp.test`, rider `pedro@pizzapp.test`, password `password123` for both.
 
-- [ ] **Step 2: Log in as manager and open an order (Playwright MCP)**
+- [x] **Step 2: Log in as manager and open an order (Playwright MCP)**
 
 - `mcp__playwright__browser_navigate` → `http://localhost:3000/users/sign_in`
 - Fill the Devise form (`#user_email` = `manager@pizzapp.test`, `#user_password` = `password123`) and submit.
 - `mcp__playwright__browser_navigate` → `http://localhost:3000/manager/orders`, then click the first `.order-card` to open its show page (any seeded order has coordinates).
 - `mcp__playwright__browser_wait_for` time `5` (let `style.load`, fog, and the 2.8s fly-in settle).
 
-- [ ] **Step 3: Assert the live map state (acceptance criteria 1–4, 6 for manager)**
+- [x] **Step 3: Assert the live map state (acceptance criteria 1–4, 6 for manager)**
 
 `mcp__playwright__browser_evaluate` with:
 ```js
@@ -321,15 +321,15 @@ Expected: seeds print "Done: 3 users, 5 products, 5 orders." and the server list
 ```
 Expected: `{ pitch: 60, zoom: 15.5, lightPreset: "dusk", fog: true, hasBrandPin: true, hasDefaultPin: false }`.
 
-- [ ] **Step 4: Screenshot the manager map element (not fullPage)**
+- [x] **Step 4: Screenshot the manager map element (not fullPage)**
 
 `mcp__playwright__browser_take_screenshot` with `target: ".order-map"`, `filename: "verify-manager-map.png"`. Confirm visually: warm dusk sky, lit 3D towers, green 🍕 pin on the destination.
 
-- [ ] **Step 5: Repeat for the rider role**
+- [x] **Step 5: Repeat for the rider role**
 
 Sign out (navigate to `http://localhost:3000/users/sign_out` via a `button_to`/link, or clear cookies and re-navigate to sign-in), log in as `pedro@pizzapp.test` / `password123`, open one of his deliveries from `http://localhost:3000/rider/orders`, wait `5`, and re-run the Step 3 evaluate. Expected: identical result (criterion 6 — same controller drives both). Screenshot as `verify-rider-map.png`.
 
-- [ ] **Step 6: Verify reduced-motion (acceptance criterion 5)**
+- [x] **Step 6: Verify reduced-motion (acceptance criterion 5)**
 
 Using `mcp__playwright__browser_run_code_unsafe`, emulate reduced motion and reload, then assert the final view is reached with no fly-in animation:
 ```js
@@ -344,7 +344,7 @@ return await page.evaluate(() => {
 ```
 Expected: `{ pitch: 60, zoom: 15.5 }` essentially immediately (no ~3s tilt-up), confirming the `reduceMotion` branch starts at the final view and skips `easeTo`. If `browser_run_code_unsafe`/`emulateMedia` is unavailable, instead confirm by code inspection that the `reduceMotion` branch sets the initial `zoom/pitch/bearing` to `finalView` and the `easeTo` is guarded by `if (!reduceMotion)`.
 
-- [ ] **Step 7: If any criterion fails, fix and re-verify**
+- [x] **Step 7: If any criterion fails, fix and re-verify**
 
 If a check fails (e.g. the pin tip is visibly off the coordinate, or fog is too strong), adjust the relevant file (`_order_map_marker.scss` offsets, or the `setFog`/`easeTo` params in the controller), re-run the failing evaluate, then amend or add a follow-up commit:
 ```bash
@@ -356,7 +356,7 @@ Stop the server (`Ctrl-C` on `bin/dev`) when done.
 
 ### Task 5: Final pipeline and branch wrap-up
 
-- [ ] **Step 1: Run the full local CI**
+- [x] **Step 1: Run the full local CI**
 
 Run:
 ```bash
@@ -364,7 +364,7 @@ bin/ci
 ```
 Expected: green — setup, RuboCop, the three security scanners, the Minitest suite, and `db:seed:replant` all pass. (`db:seed:replant` needs `MAPBOX_API_KEY`; without it geocoding no-ops non-fatally — preexisting behavior.)
 
-- [ ] **Step 2: Finish the branch**
+- [x] **Step 2: Finish the branch**
 
 Invoke the **superpowers:finishing-a-development-branch** skill to choose how to integrate (PR vs merge). The user follows an SDD workflow and expects a PR for this feature (spec + plan already committed on `fix/cdmx-geocoding-3d-map`). Confirm with the user whether this rides the current branch's PR or gets its own.
 
