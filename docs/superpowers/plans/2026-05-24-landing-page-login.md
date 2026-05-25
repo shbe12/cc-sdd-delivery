@@ -34,7 +34,7 @@ No se crean modelos, migraciones ni controladores. Los tests existentes en `test
 - Create: `test/integration/home_landing_test.rb`
 - Modify: `app/views/pages/home.html.erb`
 
-- [ ] **Step 1: Escribir el test que falla**
+- [x] **Step 1: Escribir el test que falla**
 
 Crear `test/integration/home_landing_test.rb`:
 
@@ -65,12 +65,12 @@ class HomeLandingTest < ActionDispatch::IntegrationTest
 end
 ```
 
-- [ ] **Step 2: Ejecutar el test y verificar que falla**
+- [x] **Step 2: Ejecutar el test y verificar que falla**
 
 Run: `bin/rails test test/integration/home_landing_test.rb`
 Expected: FAIL — los dos primeros tests fallan (el placeholder no contiene "Del horno a la puerta" ni un enlace a `new_user_session_path`).
 
-- [ ] **Step 3: Implementar la vista**
+- [x] **Step 3: Implementar la vista**
 
 Reemplazar TODO el contenido de `app/views/pages/home.html.erb` por:
 
@@ -172,12 +172,12 @@ Reemplazar TODO el contenido de `app/views/pages/home.html.erb` por:
 </div>
 ```
 
-- [ ] **Step 4: Ejecutar el test y verificar que pasa**
+- [x] **Step 4: Ejecutar el test y verificar que pasa**
 
 Run: `bin/rails test test/integration/home_landing_test.rb`
 Expected: PASS (3 runs, 0 failures).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add test/integration/home_landing_test.rb app/views/pages/home.html.erb
@@ -193,7 +193,7 @@ Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
 **Files:**
 - Modify: `app/assets/stylesheets/pages/_home.scss`
 
-- [ ] **Step 1: Implementar el SCSS**
+- [x] **Step 1: Implementar el SCSS**
 
 Reemplazar TODO el contenido de `app/assets/stylesheets/pages/_home.scss` por (las variables `$brand`, `$bg`, `$panel`, `$ink`, `$ink-2`, `$muted`, `$line`, `$pending`, `$assigned`, `$en-route`, `$delivered`, `$headers-font` ya están definidas globalmente por `config/_colors.scss` y `config/_fonts.scss`, importados antes que este archivo):
 
@@ -480,17 +480,17 @@ Reemplazar TODO el contenido de `app/assets/stylesheets/pages/_home.scss` por (l
 }
 ```
 
-- [ ] **Step 2: Verificar que el SCSS compila**
+- [x] **Step 2: Verificar que el SCSS compila**
 
 Run: `bin/rails assets:precompile`
 Expected: termina sin errores (sin `SassC::SyntaxError`). Los archivos generados van a `public/assets/`, que está en `.gitignore`.
 
-- [ ] **Step 3: Verificación visual (manual)**
+- [x] **Step 3: Verificación visual (manual)**
 
 Run: `bin/dev` y abrir `http://localhost:3000/` sin sesión.
 Expected: se ve la landing con el hero dividido, el mini-tablero kanban con los colores de estado, las 3 tarjetas de características, las capturas, la banda verde de CTA y el footer. Detener con Ctrl-C.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add app/assets/stylesheets/pages/_home.scss
@@ -508,7 +508,7 @@ Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
 - Modify: `app/views/devise/sessions/new.html.erb`
 - Modify: `app/views/devise/shared/_links.html.erb`
 
-- [ ] **Step 1: Escribir el test que falla**
+- [x] **Step 1: Escribir el test que falla**
 
 Crear `test/integration/login_page_test.rb`:
 
@@ -532,12 +532,12 @@ class LoginPageTest < ActionDispatch::IntegrationTest
 end
 ```
 
-- [ ] **Step 2: Ejecutar el test y verificar que falla**
+- [x] **Step 2: Ejecutar el test y verificar que falla**
 
 Run: `bin/rails test test/integration/login_page_test.rb`
 Expected: FAIL — el encabezado actual es "Log in" (no "Iniciar sesión") y el partial de Devise sí muestra un enlace "Sign up" a `new_user_registration_path`.
 
-- [ ] **Step 3: Traducir la página de login**
+- [x] **Step 3: Traducir la página de login**
 
 Reemplazar TODO el contenido de `app/views/devise/sessions/new.html.erb` por:
 
@@ -566,7 +566,7 @@ Reemplazar TODO el contenido de `app/views/devise/sessions/new.html.erb` por:
 <%= render "devise/shared/links" %>
 ```
 
-- [ ] **Step 4: Quitar el registro y traducir el partial de enlaces**
+- [x] **Step 4: Quitar el registro y traducir el partial de enlaces**
 
 Reemplazar TODO el contenido de `app/views/devise/shared/_links.html.erb` por (se elimina por completo el bloque `if devise_mapping.registerable?`, de modo que no aparece "Crear cuenta" en ninguna vista de Devise):
 
@@ -596,12 +596,12 @@ Reemplazar TODO el contenido de `app/views/devise/shared/_links.html.erb` por (s
 <% end %>
 ```
 
-- [ ] **Step 5: Ejecutar el test y verificar que pasa**
+- [x] **Step 5: Ejecutar el test y verificar que pasa**
 
 Run: `bin/rails test test/integration/login_page_test.rb`
 Expected: PASS (2 runs, 0 failures).
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add test/integration/login_page_test.rb app/views/devise/sessions/new.html.erb app/views/devise/shared/_links.html.erb
@@ -616,17 +616,17 @@ Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
 
 **Files:** ninguno (solo verificación)
 
-- [ ] **Step 1: Ejecutar toda la suite de tests**
+- [x] **Step 1: Ejecutar toda la suite de tests**
 
 Run: `bin/rails test`
 Expected: PASS — incluyendo `home_landing_test`, `login_page_test` y los `role_routing_test` existentes, todos verdes.
 
-- [ ] **Step 2: Ejecutar el pipeline de CI completo**
+- [x] **Step 2: Ejecutar el pipeline de CI completo**
 
 Run: `bin/ci`
 Expected: todos los pasos en verde (Setup, RuboCop, los tres scanners de seguridad, Tests: Rails, Tests: Seeds).
 
-- [ ] **Step 3: Recorrido manual del flujo completo**
+- [x] **Step 3: Recorrido manual del flujo completo**
 
 Run: `bin/dev`. Con las cuentas del seed (ver credenciales en `db/seeds.rb`):
 1. Abrir `http://localhost:3000/` sin sesión → se ve la landing.
@@ -636,6 +636,6 @@ Run: `bin/dev`. Con las cuentas del seed (ver credenciales en `db/seeds.rb`):
 
 Detener con Ctrl-C.
 
-- [ ] **Step 4: Verificación de redirección de usuarios autenticados (ya cubierta)**
+- [x] **Step 4: Verificación de redirección de usuarios autenticados (ya cubierta)**
 
 `role_routing_test.rb` ya garantiza que un usuario autenticado que visita `/` es redirigido a su dashboard. Confirmar que esos 4 tests siguen verdes en el output del Step 1. No requiere cambios.

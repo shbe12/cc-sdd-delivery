@@ -448,6 +448,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   font-awesome-sass (~> 6.1)
+  geocoder
   image_processing (~> 2.0)
   importmap-rails
   jbuilder

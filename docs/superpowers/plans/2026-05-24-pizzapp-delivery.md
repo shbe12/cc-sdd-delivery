@@ -28,7 +28,7 @@
 - Create: `config/initializers/geocoder.rb`
 - Modify: `test/test_helper.rb`
 
-- [ ] **Step 1: Add the gem**
+- [x] **Step 1: Add the gem**
 
 In `Gemfile`, add after the `gem "devise"` line:
 
@@ -36,12 +36,12 @@ In `Gemfile`, add after the `gem "devise"` line:
 gem "geocoder"
 ```
 
-- [ ] **Step 2: Install**
+- [x] **Step 2: Install**
 
 Run: `bundle install`
 Expected: bundle completes, `geocoder` resolved.
 
-- [ ] **Step 3: Configure geocoder (Mapbox provider)**
+- [x] **Step 3: Configure geocoder (Mapbox provider)**
 
 Create `config/initializers/geocoder.rb`:
 
@@ -54,7 +54,7 @@ Geocoder.configure(
 )
 ```
 
-- [ ] **Step 4: Stub geocoding in tests so the suite never hits the network**
+- [x] **Step 4: Stub geocoding in tests so the suite never hits the network**
 
 In `test/test_helper.rb`, add after `require "rails/test_help"`:
 
@@ -66,12 +66,12 @@ Geocoder::Lookup::Test.set_default_stub(
 )
 ```
 
-- [ ] **Step 5: Verify the app still boots**
+- [x] **Step 5: Verify the app still boots**
 
 Run: `bin/rails runner "puts Geocoder.config.lookup"`
 Expected: prints `mapbox` (or `test` under RAILS_ENV=test).
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 bin/rubocop -a
@@ -88,11 +88,11 @@ git commit -m "chore: add and configure geocoder with test stub"
 - Modify: `app/models/user.rb`
 - Modify: `test/models/user_test.rb`
 
-- [ ] **Step 1: Generate the migration**
+- [x] **Step 1: Generate the migration**
 
 Run: `bin/rails g migration AddRoleToUsers role:integer`
 
-- [ ] **Step 2: Edit the migration to add default + null:false + index**
+- [x] **Step 2: Edit the migration to add default + null:false + index**
 
 Replace the generated `db/migrate/*_add_role_to_users.rb` body with:
 
@@ -107,12 +107,12 @@ end
 
 (`1` = `rider`, the default for new sign-ups.)
 
-- [ ] **Step 3: Migrate**
+- [x] **Step 3: Migrate**
 
 Run: `bin/rails db:migrate`
 Expected: `users` gains a `role` column.
 
-- [ ] **Step 4: Write the failing test**
+- [x] **Step 4: Write the failing test**
 
 Replace `test/models/user_test.rb` with:
 
@@ -139,12 +139,12 @@ class UserTest < ActiveSupport::TestCase
 end
 ```
 
-- [ ] **Step 5: Run it — expect failure**
+- [x] **Step 5: Run it — expect failure**
 
 Run: `bin/rails test test/models/user_test.rb`
 Expected: FAIL (`NoMethodError: undefined method 'rider?'`).
 
-- [ ] **Step 6: Implement the model changes**
+- [x] **Step 6: Implement the model changes**
 
 Replace `app/models/user.rb` with:
 
@@ -161,12 +161,12 @@ class User < ApplicationRecord
 end
 ```
 
-- [ ] **Step 7: Run it — expect pass**
+- [x] **Step 7: Run it — expect pass**
 
 Run: `bin/rails test test/models/user_test.rb`
 Expected: PASS (3 runs, 0 failures). The `assigned_orders` test passes even though `Order` doesn't exist yet because the association is lazy.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 bin/rubocop -a
@@ -182,11 +182,11 @@ git commit -m "feat: add role enum and assigned_orders to User"
 - Create: `db/migrate/*_create_products.rb`, `app/models/product.rb` (via generator)
 - Modify: the generated `test/models/product_test.rb`
 
-- [ ] **Step 1: Generate the model**
+- [x] **Step 1: Generate the model**
 
 Run: `bin/rails g model Product name:string price:decimal`
 
-- [ ] **Step 2: Edit the migration for precision + null:false**
+- [x] **Step 2: Edit the migration for precision + null:false**
 
 Replace the generated `db/migrate/*_create_products.rb` body with:
 
@@ -203,11 +203,11 @@ class CreateProducts < ActiveRecord::Migration[8.1]
 end
 ```
 
-- [ ] **Step 3: Migrate**
+- [x] **Step 3: Migrate**
 
 Run: `bin/rails db:migrate`
 
-- [ ] **Step 4: Write the failing test**
+- [x] **Step 4: Write the failing test**
 
 Replace `test/models/product_test.rb` with:
 
@@ -232,12 +232,12 @@ class ProductTest < ActiveSupport::TestCase
 end
 ```
 
-- [ ] **Step 5: Run it — expect failure**
+- [x] **Step 5: Run it — expect failure**
 
 Run: `bin/rails test test/models/product_test.rb`
 Expected: FAIL (no validations yet — invalid records are reported valid).
 
-- [ ] **Step 6: Implement the model**
+- [x] **Step 6: Implement the model**
 
 Replace `app/models/product.rb` with:
 
@@ -250,12 +250,12 @@ class Product < ApplicationRecord
 end
 ```
 
-- [ ] **Step 7: Run it — expect pass**
+- [x] **Step 7: Run it — expect pass**
 
 Run: `bin/rails test test/models/product_test.rb`
 Expected: PASS (3 runs, 0 failures).
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 bin/rubocop -a
@@ -271,11 +271,11 @@ git commit -m "feat: add Product model"
 - Create: `db/migrate/*_create_orders.rb`, `app/models/order.rb` (via generator)
 - Modify: the generated `test/models/order_test.rb`
 
-- [ ] **Step 1: Generate the model**
+- [x] **Step 1: Generate the model**
 
 Run: `bin/rails g model Order recipient_name:string recipient_phone:string address:string latitude:float longitude:float status:integer rider:references`
 
-- [ ] **Step 2: Edit the migration (null/defaults; rider FK → users; nullable rider)**
+- [x] **Step 2: Edit the migration (null/defaults; rider FK → users; nullable rider)**
 
 Replace the generated `db/migrate/*_create_orders.rb` body with:
 
@@ -299,11 +299,11 @@ end
 
 (`status` default `0` = `pending`. `rider` is nullable — no `null: false` — so a pending order has no rider.)
 
-- [ ] **Step 3: Migrate**
+- [x] **Step 3: Migrate**
 
 Run: `bin/rails db:migrate`
 
-- [ ] **Step 4: Write the failing test**
+- [x] **Step 4: Write the failing test**
 
 Replace `test/models/order_test.rb` with:
 
@@ -337,12 +337,12 @@ class OrderTest < ActiveSupport::TestCase
 end
 ```
 
-- [ ] **Step 5: Run it — expect failure**
+- [x] **Step 5: Run it — expect failure**
 
 Run: `bin/rails test test/models/order_test.rb`
 Expected: FAIL (`belongs_to :rider` is required by default, so "rider is optional" fails; no presence validations yet).
 
-- [ ] **Step 6: Implement the model**
+- [x] **Step 6: Implement the model**
 
 Replace `app/models/order.rb` with:
 
@@ -356,12 +356,12 @@ class Order < ApplicationRecord
 end
 ```
 
-- [ ] **Step 7: Run it — expect pass**
+- [x] **Step 7: Run it — expect pass**
 
 Run: `bin/rails test test/models/order_test.rb`
 Expected: PASS (3 runs, 0 failures).
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 bin/rubocop -a
@@ -377,11 +377,11 @@ git commit -m "feat: add Order model with status enum and validations"
 - Create: `db/migrate/*_create_order_items.rb`, `app/models/order_item.rb` (via generator)
 - Modify: the generated `test/models/order_item_test.rb`
 
-- [ ] **Step 1: Generate the model**
+- [x] **Step 1: Generate the model**
 
 Run: `bin/rails g model OrderItem order:references product:references unit_price:decimal quantity:integer`
 
-- [ ] **Step 2: Edit the migration (precision, null:false, quantity default)**
+- [x] **Step 2: Edit the migration (precision, null:false, quantity default)**
 
 Replace the generated `db/migrate/*_create_order_items.rb` body with:
 
@@ -400,11 +400,11 @@ class CreateOrderItems < ActiveRecord::Migration[8.1]
 end
 ```
 
-- [ ] **Step 3: Migrate**
+- [x] **Step 3: Migrate**
 
 Run: `bin/rails db:migrate`
 
-- [ ] **Step 4: Write the failing test**
+- [x] **Step 4: Write the failing test**
 
 Replace `test/models/order_item_test.rb` with:
 
@@ -442,12 +442,12 @@ class OrderItemTest < ActiveSupport::TestCase
 end
 ```
 
-- [ ] **Step 5: Run it — expect failure**
+- [x] **Step 5: Run it — expect failure**
 
 Run: `bin/rails test test/models/order_item_test.rb`
 Expected: FAIL (`undefined method 'subtotal'`; no unit_price copy/validation yet).
 
-- [ ] **Step 6: Implement the model**
+- [x] **Step 6: Implement the model**
 
 Replace `app/models/order_item.rb` with:
 
@@ -473,12 +473,12 @@ class OrderItem < ApplicationRecord
 end
 ```
 
-- [ ] **Step 7: Run it — expect pass**
+- [x] **Step 7: Run it — expect pass**
 
 Run: `bin/rails test test/models/order_item_test.rb`
 Expected: PASS (4 runs, 0 failures).
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 bin/rubocop -a
@@ -494,7 +494,7 @@ git commit -m "feat: add OrderItem model with unit_price snapshot and subtotal"
 - Modify: `app/models/order.rb`
 - Modify: `test/models/order_test.rb`
 
-- [ ] **Step 1: Add the failing tests**
+- [x] **Step 1: Add the failing tests**
 
 Append these tests inside `test/models/order_test.rb` (before the final `end`):
 
@@ -558,12 +558,12 @@ Append these tests inside `test/models/order_test.rb` (before the final `end`):
   end
 ```
 
-- [ ] **Step 2: Run it — expect failure**
+- [x] **Step 2: Run it — expect failure**
 
 Run: `bin/rails test test/models/order_test.rb`
 Expected: FAIL (`undefined method 'order_items'` / `total` / `assign_to!`).
 
-- [ ] **Step 3: Implement the wiring**
+- [x] **Step 3: Implement the wiring**
 
 Replace `app/models/order.rb` with:
 
@@ -610,17 +610,17 @@ class Order < ApplicationRecord
 end
 ```
 
-- [ ] **Step 4: Run it — expect pass**
+- [x] **Step 4: Run it — expect pass**
 
 Run: `bin/rails test test/models/order_test.rb`
 Expected: PASS (all order tests green).
 
-- [ ] **Step 5: Run the full model suite**
+- [x] **Step 5: Run the full model suite**
 
 Run: `bin/rails test test/models`
 Expected: PASS (User, Product, Order, OrderItem).
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 bin/rubocop -a
@@ -636,7 +636,7 @@ git commit -m "feat: wire Order items, total and status transitions"
 - Modify: `app/models/order.rb`
 - Modify: `test/models/order_test.rb`
 
-- [ ] **Step 1: Add the failing test**
+- [x] **Step 1: Add the failing test**
 
 Add inside `test/models/order_test.rb` (after the "is valid with one item" test, before `private`):
 
@@ -658,12 +658,12 @@ Add inside `test/models/order_test.rb` (after the "is valid with one item" test,
 
 (The fixed coordinates come from the test stub in `test/test_helper.rb`.)
 
-- [ ] **Step 2: Run it — expect failure**
+- [x] **Step 2: Run it — expect failure**
 
 Run: `bin/rails test test/models/order_test.rb`
 Expected: FAIL (`latitude` is nil — no geocoding yet).
 
-- [ ] **Step 3: Add geocoding to the model**
+- [x] **Step 3: Add geocoding to the model**
 
 In `app/models/order.rb`, add the geocoder lines directly under the `validate :must_have_at_least_one_item` line:
 
@@ -672,12 +672,12 @@ In `app/models/order.rb`, add the geocoder lines directly under the `validate :m
   after_validation :geocode, if: -> { address.present? && address_changed? }
 ```
 
-- [ ] **Step 4: Run it — expect pass**
+- [x] **Step 4: Run it — expect pass**
 
 Run: `bin/rails test test/models/order_test.rb`
 Expected: PASS.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 bin/rubocop -a
@@ -698,7 +698,7 @@ git commit -m "feat: geocode Order addresses with geocoder"
 - Modify: `test/test_helper.rb` (Devise integration sign-in helper)
 - Create: `test/integration/role_routing_test.rb`
 
-- [ ] **Step 1: Add the routes**
+- [x] **Step 1: Add the routes**
 
 Replace the body of `config/routes.rb`'s `draw` block (keep the health-check and PWA comments) so it reads:
 
@@ -720,7 +720,7 @@ Rails.application.routes.draw do
 end
 ```
 
-- [ ] **Step 2: Enable Devise sign-in in integration tests**
+- [x] **Step 2: Enable Devise sign-in in integration tests**
 
 In `test/test_helper.rb`, add a new block after the `ActiveSupport::TestCase` class:
 
@@ -730,7 +730,7 @@ class ActionDispatch::IntegrationTest
 end
 ```
 
-- [ ] **Step 3: Write the failing test**
+- [x] **Step 3: Write the failing test**
 
 Create `test/integration/role_routing_test.rb`:
 
@@ -769,12 +769,12 @@ class RoleRoutingTest < ActionDispatch::IntegrationTest
 end
 ```
 
-- [ ] **Step 4: Run it — expect failure**
+- [x] **Step 4: Run it — expect failure**
 
 Run: `bin/rails test test/integration/role_routing_test.rb`
 Expected: FAIL (no namespace controllers; no redirect logic).
 
-- [ ] **Step 5: Add role redirect to ApplicationController**
+- [x] **Step 5: Add role redirect to ApplicationController**
 
 Replace `app/controllers/application_controller.rb` with:
 
@@ -794,7 +794,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-- [ ] **Step 6: Redirect signed-in users from home to their dashboard**
+- [x] **Step 6: Redirect signed-in users from home to their dashboard**
 
 Replace `app/controllers/pages_controller.rb` with:
 
@@ -808,7 +808,7 @@ class PagesController < ApplicationController
 end
 ```
 
-- [ ] **Step 7: Create the manager base controller**
+- [x] **Step 7: Create the manager base controller**
 
 Create `app/controllers/manager/base_controller.rb`:
 
@@ -824,7 +824,7 @@ class Manager::BaseController < ApplicationController
 end
 ```
 
-- [ ] **Step 8: Create the rider base controller**
+- [x] **Step 8: Create the rider base controller**
 
 Create `app/controllers/rider/base_controller.rb`:
 
@@ -840,7 +840,7 @@ class Rider::BaseController < ApplicationController
 end
 ```
 
-- [ ] **Step 9: Create placeholder namespace controllers so routes resolve**
+- [x] **Step 9: Create placeholder namespace controllers so routes resolve**
 
 Create `app/controllers/manager/orders_controller.rb`:
 
@@ -864,12 +864,12 @@ end
 
 (These are fleshed out in later tasks; for now they only need to exist so the authorization redirects are exercised. The index views are added in Tasks 9 and 12 — until then these tasks' own tests target redirects, which happen in the `before_action` before any view renders.)
 
-- [ ] **Step 10: Run it — expect pass**
+- [x] **Step 10: Run it — expect pass**
 
 Run: `bin/rails test test/integration/role_routing_test.rb`
 Expected: PASS (4 runs, 0 failures).
 
-- [ ] **Step 11: Commit**
+- [x] **Step 11: Commit**
 
 ```bash
 bin/rubocop -a
@@ -887,7 +887,7 @@ git commit -m "feat: role-namespaced routing with authorization redirects"
 - Create: `app/views/manager/orders/_card.html.erb`
 - Create: `test/integration/manager_orders_test.rb`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `test/integration/manager_orders_test.rb`:
 
@@ -920,12 +920,12 @@ class ManagerOrdersTest < ActionDispatch::IntegrationTest
 end
 ```
 
-- [ ] **Step 2: Run it — expect failure**
+- [x] **Step 2: Run it — expect failure**
 
 Run: `bin/rails test test/integration/manager_orders_test.rb`
 Expected: FAIL (missing template / `kanban-column` not found).
 
-- [ ] **Step 3: Implement the index action**
+- [x] **Step 3: Implement the index action**
 
 Replace `app/controllers/manager/orders_controller.rb` with:
 
@@ -945,7 +945,7 @@ class Manager::OrdersController < Manager::BaseController
 end
 ```
 
-- [ ] **Step 4: Create the order card partial**
+- [x] **Step 4: Create the order card partial**
 
 Create `app/views/manager/orders/_card.html.erb`:
 
@@ -983,7 +983,7 @@ Create `app/views/manager/orders/_card.html.erb`:
 <% end %>
 ```
 
-- [ ] **Step 5: Create the kanban index view**
+- [x] **Step 5: Create the kanban index view**
 
 Create `app/views/manager/orders/index.html.erb`:
 
@@ -1017,12 +1017,12 @@ Create `app/views/manager/orders/index.html.erb`:
 </div>
 ```
 
-- [ ] **Step 6: Run it — expect pass**
+- [x] **Step 6: Run it — expect pass**
 
 Run: `bin/rails test test/integration/manager_orders_test.rb`
 Expected: PASS.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 bin/rubocop -a
@@ -1042,7 +1042,7 @@ git commit -m "feat: manager kanban board index"
 - Create: `app/javascript/controllers/order_form_controller.js`
 - Modify: `test/integration/manager_orders_test.rb`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Add inside `test/integration/manager_orders_test.rb` (before the final `end`):
 
@@ -1079,12 +1079,12 @@ Add inside `test/integration/manager_orders_test.rb` (before the final `end`):
   end
 ```
 
-- [ ] **Step 2: Run it — expect failure**
+- [x] **Step 2: Run it — expect failure**
 
 Run: `bin/rails test test/integration/manager_orders_test.rb`
 Expected: FAIL (no `new`/`create` actions or templates).
 
-- [ ] **Step 3: Add new/create to the controller**
+- [x] **Step 3: Add new/create to the controller**
 
 In `app/controllers/manager/orders_controller.rb`, add these actions after `index`:
 
@@ -1119,7 +1119,7 @@ And add the strong-params method in the `private` section (add a `private` keywo
   end
 ```
 
-- [ ] **Step 4: Create the line-item fields partial**
+- [x] **Step 4: Create the line-item fields partial**
 
 Create `app/views/manager/orders/_order_item_fields.html.erb`:
 
@@ -1143,7 +1143,7 @@ Create `app/views/manager/orders/_order_item_fields.html.erb`:
 </div>
 ```
 
-- [ ] **Step 5: Create the form partial (with a `<template>` for new rows)**
+- [x] **Step 5: Create the form partial (with a `<template>` for new rows)**
 
 Create `app/views/manager/orders/_form.html.erb`:
 
@@ -1180,7 +1180,7 @@ Create `app/views/manager/orders/_form.html.erb`:
 <% end %>
 ```
 
-- [ ] **Step 6: Create the new view**
+- [x] **Step 6: Create the new view**
 
 Create `app/views/manager/orders/new.html.erb`:
 
@@ -1193,7 +1193,7 @@ Create `app/views/manager/orders/new.html.erb`:
 </div>
 ```
 
-- [ ] **Step 7: Create the Stimulus controller for add/remove rows**
+- [x] **Step 7: Create the Stimulus controller for add/remove rows**
 
 Create `app/javascript/controllers/order_form_controller.js`:
 
@@ -1224,12 +1224,12 @@ export default class extends Controller {
 }
 ```
 
-- [ ] **Step 8: Run it — expect pass**
+- [x] **Step 8: Run it — expect pass**
 
 Run: `bin/rails test test/integration/manager_orders_test.rb`
 Expected: PASS.
 
-- [ ] **Step 9: Commit**
+- [x] **Step 9: Commit**
 
 ```bash
 bin/rubocop -a
@@ -1246,7 +1246,7 @@ git commit -m "feat: manager new/create order with dynamic line items"
 - Create: `app/views/manager/orders/show.html.erb`
 - Modify: `test/integration/manager_orders_test.rb`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Add inside `test/integration/manager_orders_test.rb` (before the final `end`):
 
@@ -1267,12 +1267,12 @@ Add inside `test/integration/manager_orders_test.rb` (before the final `end`):
   end
 ```
 
-- [ ] **Step 2: Run it — expect failure**
+- [x] **Step 2: Run it — expect failure**
 
 Run: `bin/rails test test/integration/manager_orders_test.rb`
 Expected: FAIL (no `show`/`update`).
 
-- [ ] **Step 3: Add show/update to the controller**
+- [x] **Step 3: Add show/update to the controller**
 
 In `app/controllers/manager/orders_controller.rb`, add after `create`:
 
@@ -1293,7 +1293,7 @@ In `app/controllers/manager/orders_controller.rb`, add after `create`:
   end
 ```
 
-- [ ] **Step 4: Create the show view (detail + map + assign form)**
+- [x] **Step 4: Create the show view (detail + map + assign form)**
 
 Create `app/views/manager/orders/show.html.erb`:
 
@@ -1350,12 +1350,12 @@ Create `app/views/manager/orders/show.html.erb`:
 </div>
 ```
 
-- [ ] **Step 5: Run it — expect pass**
+- [x] **Step 5: Run it — expect pass**
 
 Run: `bin/rails test test/integration/manager_orders_test.rb`
 Expected: PASS.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 bin/rubocop -a
@@ -1372,7 +1372,7 @@ git commit -m "feat: manager order detail and assign-rider"
 - Create: `app/views/rider/orders/index.html.erb`
 - Create: `test/integration/rider_orders_test.rb`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `test/integration/rider_orders_test.rb`:
 
@@ -1405,12 +1405,12 @@ class RiderOrdersTest < ActionDispatch::IntegrationTest
 end
 ```
 
-- [ ] **Step 2: Run it — expect failure**
+- [x] **Step 2: Run it — expect failure**
 
 Run: `bin/rails test test/integration/rider_orders_test.rb`
 Expected: FAIL (placeholder `index` renders no `.order-card`).
 
-- [ ] **Step 3: Implement the rider index**
+- [x] **Step 3: Implement the rider index**
 
 Replace `app/controllers/rider/orders_controller.rb` with:
 
@@ -1426,7 +1426,7 @@ class Rider::OrdersController < Rider::BaseController
 end
 ```
 
-- [ ] **Step 4: Create a rider card partial**
+- [x] **Step 4: Create a rider card partial**
 
 Create `app/views/rider/orders/_card.html.erb`:
 
@@ -1454,7 +1454,7 @@ Create `app/views/rider/orders/_card.html.erb`:
 <% end %>
 ```
 
-- [ ] **Step 5: Create the rider index view**
+- [x] **Step 5: Create the rider index view**
 
 Create `app/views/rider/orders/index.html.erb`:
 
@@ -1481,12 +1481,12 @@ Create `app/views/rider/orders/index.html.erb`:
 </div>
 ```
 
-- [ ] **Step 6: Run it — expect pass**
+- [x] **Step 6: Run it — expect pass**
 
 Run: `bin/rails test test/integration/rider_orders_test.rb`
 Expected: PASS (only 1 `.order-card` — the rider's own active order).
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 bin/rubocop -a
@@ -1503,7 +1503,7 @@ git commit -m "feat: rider my-deliveries index scoped to current rider"
 - Create: `app/views/rider/orders/show.html.erb`
 - Modify: `test/integration/rider_orders_test.rb`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Add inside `test/integration/rider_orders_test.rb` (before the final `end`):
 
@@ -1533,12 +1533,12 @@ Add inside `test/integration/rider_orders_test.rb` (before the final `end`):
   end
 ```
 
-- [ ] **Step 2: Run it — expect failure**
+- [x] **Step 2: Run it — expect failure**
 
 Run: `bin/rails test test/integration/rider_orders_test.rb`
 Expected: FAIL (no `show`/`update`).
 
-- [ ] **Step 3: Add show/update to the rider controller**
+- [x] **Step 3: Add show/update to the rider controller**
 
 In `app/controllers/rider/orders_controller.rb`, add after `index`:
 
@@ -1565,7 +1565,7 @@ In `app/controllers/rider/orders_controller.rb`, add after `index`:
 
 (`current_user.assigned_orders.find` scopes to the rider's own orders, so another rider's id raises `ActiveRecord::RecordNotFound` → 404, satisfying the authorization tests.)
 
-- [ ] **Step 4: Create the rider show view**
+- [x] **Step 4: Create the rider show view**
 
 Create `app/views/rider/orders/show.html.erb`:
 
@@ -1620,17 +1620,17 @@ Create `app/views/rider/orders/show.html.erb`:
 </div>
 ```
 
-- [ ] **Step 5: Run it — expect pass**
+- [x] **Step 5: Run it — expect pass**
 
 Run: `bin/rails test test/integration/rider_orders_test.rb`
 Expected: PASS.
 
-- [ ] **Step 6: Run the full suite**
+- [x] **Step 6: Run the full suite**
 
 Run: `bin/rails test`
 Expected: PASS (models + all integration tests).
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 bin/rubocop -a
@@ -1650,12 +1650,12 @@ This task has no automated test (it renders a JS map); it is **verified manually
 - Modify: `app/views/layouts/application.html.erb`
 - Modify: `.env` (local only — gitignored)
 
-- [ ] **Step 1: Pin Mapbox GL JS**
+- [x] **Step 1: Pin Mapbox GL JS**
 
 Run: `bin/importmap pin mapbox-gl`
 Expected: a `pin "mapbox-gl", to: "https://ga.jspm.io/npm:mapbox-gl@..."` line is added to `config/importmap.rb`.
 
-- [ ] **Step 2: Add the Mapbox stylesheet to the layout `<head>`**
+- [x] **Step 2: Add the Mapbox stylesheet to the layout `<head>`**
 
 In `app/views/layouts/application.html.erb`, add directly above the `<%= stylesheet_link_tag ... %>` line:
 
@@ -1663,7 +1663,7 @@ In `app/views/layouts/application.html.erb`, add directly above the `<%= stylesh
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
 ```
 
-- [ ] **Step 3: Create the map Stimulus controller**
+- [x] **Step 3: Create the map Stimulus controller**
 
 Create `app/javascript/controllers/map_controller.js`:
 
@@ -1694,7 +1694,7 @@ export default class extends Controller {
 }
 ```
 
-- [ ] **Step 4: Add your Mapbox key locally**
+- [x] **Step 4: Add your Mapbox key locally**
 
 Add to `.env` (this file is gitignored — do not commit it):
 
@@ -1704,7 +1704,7 @@ MAPBOX_API_KEY=pk.your_mapbox_public_token_here
 
 (Get a free public token at https://account.mapbox.com/access-tokens/. The same token powers both geocoding and map tiles.)
 
-- [ ] **Step 5: Manual verification**
+- [x] **Step 5: Manual verification**
 
 Run: `bin/rails db:seed` then `bin/dev`
 - Sign in as the seeded manager, open any order's detail page → a map with a marker at the delivery address renders.
@@ -1712,12 +1712,12 @@ Run: `bin/rails db:seed` then `bin/dev`
 
 Expected: map renders with a marker. If the jspm pin fails to load, fall back to pinning the CDN ESM build: `pin "mapbox-gl", to: "https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"` and reload.
 
-- [ ] **Step 6: Verify the suite still passes (no key needed in tests)**
+- [x] **Step 6: Verify the suite still passes (no key needed in tests)**
 
 Run: `bin/rails test`
 Expected: PASS (tests use the geocoder test stub; the map only renders client-side).
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 bin/rubocop -a
@@ -1736,7 +1736,7 @@ git commit -m "feat: render delivery location on a Mapbox map"
 
 Visual reference for exact values: the approved mockup `.superpowers/brainstorm/9705-1779610060/content/kanban-final.html`.
 
-- [ ] **Step 1: Define the color tokens**
+- [x] **Step 1: Define the color tokens**
 
 Replace `app/assets/stylesheets/config/_colors.scss` with:
 
@@ -1761,7 +1761,7 @@ $light-gray:  $bg;
 $gray:        $ink;
 ```
 
-- [ ] **Step 2: Define the fonts**
+- [x] **Step 2: Define the fonts**
 
 Replace `app/assets/stylesheets/config/_fonts.scss` with:
 
@@ -1773,7 +1773,7 @@ $body-font:    "Inter", "Helvetica", sans-serif;
 $headers-font: "Plus Jakarta Sans", "Inter", sans-serif;
 ```
 
-- [ ] **Step 3: Map tokens onto Bootstrap variables**
+- [x] **Step 3: Map tokens onto Bootstrap variables**
 
 In `app/assets/stylesheets/config/_bootstrap_variables.scss`, update the "General style" and "Colors" sections to:
 
@@ -1795,12 +1795,12 @@ $warning:    $pending;
 
 Leave the border-radius block below it as-is.
 
-- [ ] **Step 4: Verify SCSS compiles**
+- [x] **Step 4: Verify SCSS compiles**
 
 Run: `bin/rails assets:precompile 2>&1 | tail -5` (or load any page with `bin/dev`).
 Expected: no Sass errors.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add app/assets/stylesheets/config
@@ -1817,7 +1817,7 @@ git commit -m "style: add PizzApp design tokens (basil-green brand, Inter/Jakart
 - Create: `app/assets/stylesheets/components/_app_shell.scss`
 - Modify: `app/assets/stylesheets/components/_index.scss`
 
-- [ ] **Step 1: Replace the navbar render with a sidebar shell in the layout**
+- [x] **Step 1: Replace the navbar render with a sidebar shell in the layout**
 
 In `app/views/layouts/application.html.erb`, replace the `<body>` block:
 
@@ -1838,7 +1838,7 @@ In `app/views/layouts/application.html.erb`, replace the `<body>` block:
   </body>
 ```
 
-- [ ] **Step 2: Create the sidebar partial**
+- [x] **Step 2: Create the sidebar partial**
 
 Create `app/views/shared/_sidebar.html.erb`:
 
@@ -1876,7 +1876,7 @@ Create `app/views/shared/_sidebar.html.erb`:
 </aside>
 ```
 
-- [ ] **Step 3: Style the app shell + sidebar**
+- [x] **Step 3: Style the app shell + sidebar**
 
 Create `app/assets/stylesheets/components/_app_shell.scss`:
 
@@ -1945,7 +1945,7 @@ Create `app/assets/stylesheets/components/_app_shell.scss`:
 }
 ```
 
-- [ ] **Step 4: Import the new component**
+- [x] **Step 4: Import the new component**
 
 In `app/assets/stylesheets/components/_index.scss`, add at the top of the imports:
 
@@ -1953,12 +1953,12 @@ In `app/assets/stylesheets/components/_index.scss`, add at the top of the import
 @import "app_shell";
 ```
 
-- [ ] **Step 5: Verify it renders**
+- [x] **Step 5: Verify it renders**
 
 Run: `bin/dev`, sign in → the sidebar shell appears with the correct links for the role.
 Expected: sidebar shows "Tablero/Nueva orden" for a manager, "Mis entregas" for a rider.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add app/views/layouts/application.html.erb app/views/shared/_sidebar.html.erb app/assets/stylesheets/components/_app_shell.scss app/assets/stylesheets/components/_index.scss
@@ -1979,7 +1979,7 @@ git commit -m "feat: sidebar app shell for signed-in users"
 
 Visual reference: `.superpowers/brainstorm/9705-1779610060/content/kanban-final.html`.
 
-- [ ] **Step 1: Status pill**
+- [x] **Step 1: Status pill**
 
 Create `app/assets/stylesheets/components/_status_pill.scss`:
 
@@ -1998,7 +1998,7 @@ Create `app/assets/stylesheets/components/_status_pill.scss`:
 }
 ```
 
-- [ ] **Step 2: Order card**
+- [x] **Step 2: Order card**
 
 Create `app/assets/stylesheets/components/_order_card.scss`:
 
@@ -2043,7 +2043,7 @@ Create `app/assets/stylesheets/components/_order_card.scss`:
 }
 ```
 
-- [ ] **Step 3: Kanban layout**
+- [x] **Step 3: Kanban layout**
 
 Create `app/assets/stylesheets/components/_kanban.scss`:
 
@@ -2076,7 +2076,7 @@ Create `app/assets/stylesheets/components/_kanban.scss`:
 }
 ```
 
-- [ ] **Step 4: Board header + order pages**
+- [x] **Step 4: Board header + order pages**
 
 Create `app/assets/stylesheets/pages/_orders.scss`:
 
@@ -2133,7 +2133,7 @@ Create `app/assets/stylesheets/pages/_orders.scss`:
 .empty-state { color: $muted; padding: 20px 0; }
 ```
 
-- [ ] **Step 5: Register the new partials**
+- [x] **Step 5: Register the new partials**
 
 In `app/assets/stylesheets/components/_index.scss`, add to the imports:
 
@@ -2149,12 +2149,12 @@ In `app/assets/stylesheets/pages/_index.scss`, add:
 @import "orders";
 ```
 
-- [ ] **Step 6: Verify the board renders correctly**
+- [x] **Step 6: Verify the board renders correctly**
 
 Run: `bin/dev`, sign in as the seeded manager → the kanban renders with four styled columns, colored status pills, and hover-lifting cards matching the mockup.
 Expected: visual match to `.superpowers/brainstorm/9705-1779610060/content/kanban-final.html`.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add app/assets/stylesheets
@@ -2168,7 +2168,7 @@ git commit -m "style: kanban board, order cards, status pills and order detail"
 **Files:**
 - Modify: `db/seeds.rb`
 
-- [ ] **Step 1: Write the seeds**
+- [x] **Step 1: Write the seeds**
 
 Replace `db/seeds.rb` with:
 
@@ -2222,22 +2222,22 @@ puts "Done: #{User.count} users, #{Product.count} products, #{Order.count} order
 
 (Geocoding runs against Mapbox during seeding, so `MAPBOX_API_KEY` must be set in `.env`. If it is missing, orders still save but without coordinates — the map simply won't render for them.)
 
-- [ ] **Step 2: Run the seeds**
+- [x] **Step 2: Run the seeds**
 
 Run: `bin/rails db:seed:replant`
 Expected: prints the final counts, no errors.
 
-- [ ] **Step 3: Run the full test suite**
+- [x] **Step 3: Run the full test suite**
 
 Run: `bin/rails test`
 Expected: PASS (all model + integration tests).
 
-- [ ] **Step 4: Run the full CI gate**
+- [x] **Step 4: Run the full CI gate**
 
 Run: `bin/ci`
 Expected: RuboCop clean, security scanners clean, tests green, seeds replant succeeds. Fix anything that fails, then re-run.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add db/seeds.rb
@@ -2248,10 +2248,10 @@ git commit -m "chore: seed PizzApp with users, menu and sample orders"
 
 ## Final verification checklist
 
-- [ ] `bin/ci` passes end-to-end.
-- [ ] Manager flow: sign in → kanban → "Nueva orden" with multiple line items → order detail → assign rider.
-- [ ] Rider flow: sign in → "Mis entregas" (only own) → open delivery → "Marcar en camino" → "Marcar entregada".
-- [ ] A rider visiting another rider's order URL gets a 404; a rider visiting `/manager/orders` is redirected to root.
-- [ ] Order detail shows a Mapbox map at the delivery address (requires `MAPBOX_API_KEY`).
-- [ ] The board visually matches `.superpowers/brainstorm/9705-1779610060/content/kanban-final.html`.
+- [x] `bin/ci` passes end-to-end.
+- [x] Manager flow: sign in → kanban → "Nueva orden" with multiple line items → order detail → assign rider.
+- [x] Rider flow: sign in → "Mis entregas" (only own) → open delivery → "Marcar en camino" → "Marcar entregada".
+- [x] A rider visiting another rider's order URL gets a 404; a rider visiting `/manager/orders` is redirected to root.
+- [x] Order detail shows a Mapbox map at the delivery address (requires `MAPBOX_API_KEY`).
+- [x] The board visually matches `.superpowers/brainstorm/9705-1779610060/content/kanban-final.html`.
 ```

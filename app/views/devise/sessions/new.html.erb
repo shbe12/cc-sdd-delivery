@@ -1,22 +1,29 @@
-<h2>Iniciar sesión</h2>
+<div class="auth">
+  <div class="auth__card">
+    <p class="auth__brand"><i class="fa-solid fa-pizza-slice" aria-hidden="true"></i> PizzApp</p>
+    <h2 class="auth__title">Iniciar sesión</h2>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                label: "Correo electrónico",
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                label: "Contraseña",
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, label: "Recordarme", as: :boolean if devise_mapping.rememberable? %>
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="form-inputs">
+        <%= f.input :email,
+                    label: "Correo electrónico",
+                    required: false,
+                    autofocus: true,
+                    input_html: { autocomplete: "email" } %>
+        <%= f.input :password,
+                    label: "Contraseña",
+                    required: false,
+                    input_html: { autocomplete: "current-password" } %>
+        <%= f.input :remember_me, label: "Recordarme", as: :boolean if devise_mapping.rememberable? %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Iniciar sesión", class: "btn-primary w-100" %>
+      </div>
+    <% end %>
+
+    <div class="auth__links">
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Iniciar sesión" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

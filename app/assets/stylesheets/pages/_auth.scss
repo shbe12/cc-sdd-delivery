@@ -1,0 +1,70 @@
+// Devise auth pages (login, password recovery) — centered card, mobile-first.
+// Base styles target mobile; the min-width query only adds breathing room on
+// larger screens. Tokens come from config/_colors.scss and config/_fonts.scss.
+
+.auth {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  background:
+    radial-gradient(620px 320px at 50% -12%, rgba($brand, .08), transparent 70%),
+    $bg;
+}
+
+.auth__card {
+  width: 100%;
+  max-width: 400px;
+  background: $panel;
+  border: 1px solid $line;
+  border-radius: 1rem;
+  box-shadow: 0 12px 30px rgba($ink, .08);
+  padding: 1.5rem 1.25rem;
+}
+
+.auth__brand {
+  color: $brand;
+  font-family: $headers-font;
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 0 0 .25rem;
+}
+
+.auth__title {
+  font-family: $headers-font;
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: $ink;
+  text-align: center;
+  margin: 0 0 1.25rem;
+}
+
+.auth {
+  .form-actions { margin-top: 1.1rem; }
+
+  // Match the landing's brand buttons: white label on brand green
+  // (Bootstrap's auto contrast picks black, which is off-brand here).
+  .btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-color: #fff;
+  }
+
+  // Devise's shared links render as <p> elements.
+  &__links {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: .85rem;
+
+    p { margin: .4rem 0; }
+    a { color: $brand; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  }
+}
+
+@media (min-width: 769px) {
+  .auth__card { padding: 2rem 1.75rem; }
+}
