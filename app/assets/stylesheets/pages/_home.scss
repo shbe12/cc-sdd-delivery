@@ -1,1 +1,280 @@
-// Specific CSS for your home-page
+// Specific CSS for your home-page — landing pública de PizzApp
+
+.landing {
+  background: $panel;
+
+  .landing-btn {
+    display: inline-block;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    font-weight: 600;
+    font-size: .9rem;
+    text-decoration: none;
+    transition: opacity .15s ease;
+
+    &--lg { padding: .7rem 1.4rem; font-size: 1rem; }
+    &--brand { background: $brand; color: #fff; }
+    &--on-brand { background: #fff; color: $brand; }
+    &:hover { opacity: .9; }
+  }
+}
+
+.landing-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .9rem 1.6rem;
+  background: $panel;
+  border-bottom: 1px solid $line;
+
+  &__brand {
+    color: $brand;
+    font-family: $headers-font;
+    font-weight: 800;
+    font-size: 1.15rem;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+
+    a:not(.landing-btn) {
+      color: $ink-2;
+      text-decoration: none;
+      font-size: .9rem;
+    }
+  }
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 1.6rem;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  &__text { flex: 1; }
+
+  &__eyebrow {
+    color: $brand;
+    font-weight: 700;
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin: 0 0 .5rem;
+  }
+
+  &__title {
+    font-family: $headers-font;
+    font-weight: 800;
+    font-size: 2.2rem;
+    line-height: 1.15;
+    color: $ink;
+    margin: 0 0 .75rem;
+  }
+
+  &__lead {
+    color: $ink-2;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    max-width: 36rem;
+  }
+
+  &__cta {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin-top: 1.4rem;
+  }
+
+  &__note { color: $muted; font-size: .8rem; }
+
+  &__preview { flex: 1; }
+}
+
+.kanban-preview {
+  background: $panel;
+  border: 1px solid $line;
+  border-radius: .9rem;
+  box-shadow: 0 12px 30px rgba($ink, .08);
+  padding: .9rem;
+
+  &__title {
+    font-size: .7rem;
+    font-weight: 700;
+    color: $muted;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin: 0 0 .6rem;
+  }
+
+  &__cols { display: flex; gap: .4rem; }
+
+  &__col {
+    flex: 1;
+    background: $bg;
+    border-radius: .5rem;
+    padding: .4rem;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    font-size: .6rem;
+    font-weight: 700;
+    color: $ink-2;
+    margin-bottom: .35rem;
+  }
+
+  &__dot {
+    width: .45rem;
+    height: .45rem;
+    border-radius: 50%;
+
+    &--pending   { background: $pending; }
+    &--assigned  { background: $assigned; }
+    &--en-route  { background: $en-route; }
+    &--delivered { background: $delivered; }
+  }
+
+  &__card {
+    background: $panel;
+    border: 1px solid $line;
+    border-radius: .35rem;
+    padding: .4rem;
+    margin-bottom: .35rem;
+
+    span {
+      display: block;
+      height: .3rem;
+      background: $line;
+      border-radius: .2rem;
+
+      & + span { margin-top: .25rem; width: 60%; }
+    }
+  }
+}
+
+.section-title {
+  font-family: $headers-font;
+  font-weight: 800;
+  font-size: 1.5rem;
+  text-align: center;
+  color: $ink;
+  margin: 0;
+}
+
+.section-sub {
+  color: $muted;
+  font-size: .9rem;
+  text-align: center;
+  margin: .3rem 0 0;
+}
+
+.features {
+  background: $bg;
+  padding: 3rem 1.6rem;
+
+  &__grid {
+    display: flex;
+    gap: 1.2rem;
+    max-width: 1000px;
+    margin: 1.6rem auto 0;
+  }
+}
+
+.feature-card {
+  flex: 1;
+  background: $panel;
+  border: 1px solid $line;
+  border-radius: .9rem;
+  padding: 1.4rem;
+
+  &__icon {
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: .6rem;
+    background: rgba($brand, .1);
+    color: $brand;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: .8rem;
+  }
+
+  h3 { font-size: 1rem; margin: 0 0 .4rem; color: $ink; }
+  p { color: $muted; font-size: .9rem; line-height: 1.5; margin: 0; }
+}
+
+.shots {
+  padding: 3rem 1.6rem;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  &__grid {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 1.6rem;
+  }
+}
+
+.shot {
+  flex: 1;
+  height: 150px;
+  background: $bg;
+  border: 1px solid $line;
+  border-radius: .9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  color: $muted;
+  font-size: .85rem;
+
+  i { font-size: 1.5rem; color: $line; }
+}
+
+.landing-cta {
+  background: $brand;
+  color: #fff;
+  text-align: center;
+  padding: 3.5rem 1.6rem;
+
+  &__title {
+    font-family: $headers-font;
+    font-weight: 800;
+    font-size: 1.6rem;
+    margin: 0;
+  }
+
+  &__sub { opacity: .9; font-size: .95rem; margin: .5rem 0 1.2rem; }
+}
+
+.landing-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.6rem;
+  color: $muted;
+  font-size: .8rem;
+
+  &__brand { color: $muted; font-weight: 700; }
+}
+
+@media (max-width: 768px) {
+  .hero { flex-direction: column; text-align: center; }
+  .hero__lead { margin-left: auto; margin-right: auto; }
+  .hero__cta { justify-content: center; flex-wrap: wrap; }
+  .hero__preview { width: 100%; }
+  .features__grid,
+  .shots__grid { flex-direction: column; }
+  .landing-nav__links a:not(.landing-btn) { display: none; }
+}
