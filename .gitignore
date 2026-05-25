@@ -42,3 +42,6 @@
 
 # Ignore Superpowers brainstorming companion artifacts
 .superpowers/
+
+# Ignore local Playwright MCP snapshots
+.playwright-mcp/
