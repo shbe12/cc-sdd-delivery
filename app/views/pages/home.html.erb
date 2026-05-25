@@ -1,2 +1,95 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<% content_for :title, "PizzApp — gestión de pedidos y reparto" %>
+
+<div class="landing">
+  <%# ---- Nav ---- %>
+  <header class="landing-nav">
+    <span class="landing-nav__brand"><i class="fa-solid fa-pizza-slice" aria-hidden="true"></i> PizzApp</span>
+    <nav class="landing-nav__links">
+      <a href="#caracteristicas">Características</a>
+      <%= link_to "Iniciar sesión", new_user_session_path, class: "landing-btn landing-btn--brand" %>
+    </nav>
+  </header>
+
+  <%# ---- Hero ---- %>
+  <section class="hero">
+    <div class="hero__text">
+      <p class="hero__eyebrow">Gestión de pedidos y reparto</p>
+      <h1 class="hero__title">Del horno a la puerta,<br>en tiempo real.</h1>
+      <p class="hero__lead">PizzApp coordina órdenes, cocina y reparto en un solo lugar. Los managers crean y asignan pedidos; los repartidores entregan y actualizan el estado — y todo se ve al instante en cada pantalla.</p>
+      <div class="hero__cta">
+        <%= link_to "Iniciar sesión", new_user_session_path, class: "landing-btn landing-btn--brand landing-btn--lg" %>
+        <span class="hero__note">Para managers y repartidores</span>
+      </div>
+    </div>
+
+    <div class="hero__preview">
+      <div class="kanban-preview">
+        <p class="kanban-preview__title">Tablero de órdenes</p>
+        <div class="kanban-preview__cols">
+          <div class="kanban-preview__col">
+            <div class="kanban-preview__head"><span class="kanban-preview__dot kanban-preview__dot--pending"></span>Pendiente</div>
+            <div class="kanban-preview__card"><span></span><span></span></div>
+            <div class="kanban-preview__card"><span></span></div>
+          </div>
+          <div class="kanban-preview__col">
+            <div class="kanban-preview__head"><span class="kanban-preview__dot kanban-preview__dot--assigned"></span>Asignada</div>
+            <div class="kanban-preview__card"><span></span><span></span></div>
+          </div>
+          <div class="kanban-preview__col">
+            <div class="kanban-preview__head"><span class="kanban-preview__dot kanban-preview__dot--en-route"></span>En ruta</div>
+            <div class="kanban-preview__card"><span></span></div>
+          </div>
+          <div class="kanban-preview__col">
+            <div class="kanban-preview__head"><span class="kanban-preview__dot kanban-preview__dot--delivered"></span>Entregada</div>
+            <div class="kanban-preview__card"><span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%# ---- Características ---- %>
+  <section class="features" id="caracteristicas">
+    <h2 class="section-title">Todo lo que necesita tu operación</h2>
+    <p class="section-sub">Construido sobre Hotwire — sin recargas, sin sondeos.</p>
+    <div class="features__grid">
+      <article class="feature-card">
+        <div class="feature-card__icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></div>
+        <h3 class="feature-card__name">En tiempo real</h3>
+        <p class="feature-card__body">Cada cambio de estado aparece al instante en el tablero del manager y en la pantalla del repartidor, vía Turbo Streams.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-card__icon"><i class="fa-solid fa-table-columns" aria-hidden="true"></i></div>
+        <h3 class="feature-card__name">Tablero kanban</h3>
+        <p class="feature-card__body">Visualiza cada orden por columna: pendiente, asignada, en ruta y entregada. Toda la operación de un vistazo.</p>
+      </article>
+      <article class="feature-card">
+        <div class="feature-card__icon"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i></div>
+        <h3 class="feature-card__name">Reparto en mapa</h3>
+        <p class="feature-card__body">El repartidor ve el destino en un mapa Mapbox y avanza el estado paso a paso hasta la entrega.</p>
+      </article>
+    </div>
+  </section>
+
+  <%# ---- Capturas ---- %>
+  <section class="shots">
+    <h2 class="section-title">Míralo en acción</h2>
+    <div class="shots__grid">
+      <div class="shot"><i class="fa-solid fa-table-columns" aria-hidden="true"></i><span>Tablero kanban</span></div>
+      <div class="shot"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i><span>Mapa de reparto</span></div>
+    </div>
+  </section>
+
+  <%# ---- CTA final ---- %>
+  <section class="landing-cta">
+    <h2 class="landing-cta__title">¿Listo para empezar?</h2>
+    <p class="landing-cta__sub">Inicia sesión con tu cuenta y entra directo a tu tablero.</p>
+    <%= link_to "Iniciar sesión", new_user_session_path, class: "landing-btn landing-btn--on-brand landing-btn--lg" %>
+  </section>
+
+  <%# ---- Footer ---- %>
+  <footer class="landing-footer">
+    <span class="landing-footer__brand"><i class="fa-solid fa-pizza-slice" aria-hidden="true"></i> PizzApp</span>
+    <span>© 2026 PizzApp</span>
+  </footer>
+</div>
