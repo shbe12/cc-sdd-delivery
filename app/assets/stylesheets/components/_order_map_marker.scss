@@ -1,0 +1,53 @@
+// Branded PizzApp destination marker rendered as a Mapbox custom marker element.
+// The element is created in app/javascript/controllers/map_controller.js and
+// anchored "bottom", so the teardrop tip sits on the destination coordinate.
+.order-pin {
+  position: relative;
+  width: 32px;
+  height: 40px;
+}
+
+.order-pin__dot {
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  width: 30px;
+  height: 30px;
+  margin-left: -15px;
+  background: linear-gradient(135deg, $brand, #3fd07f);
+  border: 2px solid #fff;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(45deg);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+  display: grid;
+  place-items: center;
+}
+
+.order-pin__glyph {
+  transform: rotate(-45deg);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.order-pin__pulse {
+  position: absolute;
+  left: 50%;
+  bottom: -14px;            // centers the ring on the tip (the coordinate)
+  width: 28px;
+  height: 28px;
+  margin-left: -14px;
+  border-radius: 50%;
+  background: rgba($brand, 0.35);
+  animation: order-pin-pulse 1.8s ease-out infinite;
+}
+
+@keyframes order-pin-pulse {
+  0%   { transform: scale(0.4); opacity: 0.9; }
+  100% { transform: scale(2);   opacity: 0; }
+}
+
+// Respect reduced-motion: the controller already skips the camera fly-in,
+// so stop the looping pulse ring too.
+@media (prefers-reduced-motion: reduce) {
+  .order-pin__pulse { animation: none; }
+}
