@@ -4,7 +4,7 @@
   <%= link_to "← Mis entregas", rider_orders_path, class: "rider-detail__back" %>
 
   <% if @order.latitude && @order.longitude %>
-    <div class="rider-detail__map order-map"
+    <div class="order-map"
          data-controller="map"
          data-map-api-key-value="<%= ENV["MAPBOX_API_KEY"] %>"
          data-map-lat-value="<%= @order.latitude %>"
