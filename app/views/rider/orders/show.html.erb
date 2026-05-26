@@ -1,18 +1,7 @@
 <% content_for :title, "Entrega de #{@order.recipient_name}" %>
 
-<div class="page-narrow order-detail">
-  <%= link_to "← Mis entregas", rider_orders_path, class: "order-detail__back" %>
-
-  <header class="order-detail__head">
-    <h1 class="board__title"><%= @order.recipient_name %></h1>
-    <span class="status-pill status-pill--<%= @order.status %>">
-      <span class="status-pill__dot"></span>
-      <%= Rider::OrdersController::STATUS_LABELS[@order.status] %>
-    </span>
-  </header>
-
-  <p class="order-detail__line"><i class="fa-solid fa-phone"></i> <%= @order.recipient_phone %></p>
-  <p class="order-detail__line"><i class="fa-solid fa-location-dot"></i> <%= @order.address %></p>
+<div class="rider-detail">
+  <%= link_to "← Mis entregas", rider_orders_path, class: "rider-detail__back" %>
 
   <% if @order.latitude && @order.longitude %>
     <div class="order-map"
@@ -22,25 +11,37 @@
          data-map-lng-value="<%= @order.longitude %>"></div>
   <% end %>
 
-  <table class="order-items">
-    <tbody>
-      <% @order.order_items.each do |item| %>
-        <tr><td><%= item.quantity %>× <%= item.product.name %></td>
-            <td class="order-items__amount">$<%= number_with_delimiter(item.subtotal) %></td></tr>
-      <% end %>
-    </tbody>
-    <tfoot>
-      <tr><td>Total</td><td class="order-items__amount">$<%= number_with_delimiter(@order.total) %></td></tr>
-    </tfoot>
-  </table>
+  <header class="rider-detail__head">
+    <h1 class="rider-detail__name"><%= @order.recipient_name %></h1>
+    <span class="status-pill status-pill--<%= @order.status %>">
+      <span class="status-pill__dot"></span>
+      <%= Rider::OrdersController::STATUS_LABELS[@order.status] %>
+    </span>
+  </header>
 
-  <div class="order-detail__actions">
+  <p class="rider-detail__line"><i class="fa-solid fa-location-dot"></i> <%= @order.address %></p>
+  <p class="rider-detail__line"><i class="fa-solid fa-phone"></i> <%= @order.recipient_phone %></p>
+
+  <ul class="rider-items">
+    <% @order.order_items.each do |item| %>
+      <li class="rider-items__row">
+        <span><%= item.quantity %>× <%= item.product.name %></span>
+        <span class="rider-items__amount">$<%= number_with_delimiter(item.subtotal) %></span>
+      </li>
+    <% end %>
+    <li class="rider-items__row rider-items__row--total">
+      <span>Total</span>
+      <span class="rider-items__amount">$<%= number_with_delimiter(@order.total) %></span>
+    </li>
+  </ul>
+
+  <div class="rider-detail__actions">
     <% if @order.assigned? %>
       <%= button_to "Marcar en camino", rider_order_path(@order), method: :patch,
-            params: { transition: "en_route" }, class: "btn btn-brand" %>
+            params: { transition: "en_route" }, class: "btn btn-brand rider-detail__cta" %>
     <% elsif @order.en_route? %>
       <%= button_to "Marcar entregada", rider_order_path(@order), method: :patch,
-            params: { transition: "delivered" }, class: "btn btn-brand" %>
+            params: { transition: "delivered" }, class: "btn btn-brand rider-detail__cta" %>
     <% else %>
       <p class="empty-state">Entrega completada ✓</p>
     <% end %>

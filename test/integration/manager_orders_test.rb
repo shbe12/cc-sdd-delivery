@@ -87,4 +87,11 @@ class ManagerOrdersTest < ActionDispatch::IntegrationTest
     assert_select ".order-map[data-map-lat-value]"
     assert_select ".order-map[data-map-lng-value]"
   end
+
+  test "manager keeps the shared sidebar layout and gets no rider chrome" do
+    get manager_orders_path
+    assert_response :success
+    assert_select ".sidebar"
+    assert_select ".rider-topbar", false
+  end
 end

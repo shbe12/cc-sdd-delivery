@@ -1,5 +1,6 @@
 module Rider
   class BaseController < ApplicationController
+    layout "rider"
     before_action :require_rider
 
     private

@@ -65,4 +65,50 @@ class RiderOrdersTest < ActionDispatch::IntegrationTest
     assert_select ".order-map[data-map-lat-value]"
     assert_select ".order-map[data-map-lng-value]"
   end
+
+  test "show renders order items as a list, not a table" do
+    order = create_order(rider: @rider, status: :assigned)
+    get rider_order_path(order)
+    assert_response :success
+    assert_select "ul.rider-items li.rider-items__row"
+    assert_select "li.rider-items__row--total", text: /Total/
+    assert_select "table.order-items", false
+  end
+
+  test "show has no call or navigate action buttons" do
+    order = create_order(rider: @rider, status: :assigned)
+    get rider_order_path(order)
+    assert_response :success
+    assert_select "a[href^='tel:']", false
+    assert_select "a[href*='google.com/maps']", false
+  end
+
+  test "rider pages use the top-bar layout, not the shared sidebar" do
+    order = create_order(rider: @rider, status: :assigned)
+
+    get rider_orders_path
+    assert_response :success
+    assert_select ".rider-topbar"
+    assert_select ".sidebar", false
+
+    get rider_order_path(order)
+    assert_response :success
+    assert_select ".rider-topbar"
+    assert_select ".sidebar", false
+  end
+
+  test "show renders the primary action button for an active order" do
+    order = create_order(rider: @rider, status: :assigned)
+    get rider_order_path(order)
+    assert_response :success
+    assert_select ".rider-detail__actions .rider-detail__cta", text: "Marcar en camino"
+  end
+
+  test "show shows a completed state and no action button when delivered" do
+    order = create_order(rider: @rider, status: :delivered)
+    get rider_order_path(order)
+    assert_response :success
+    assert_select ".rider-detail__cta", false
+    assert_select ".rider-detail__actions .empty-state", text: /Entrega completada/
+  end
 end

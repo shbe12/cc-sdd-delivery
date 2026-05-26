@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <%# NOTE: <head> intentionally duplicated from application.html.erb to keep the shared
+        layout untouched. If you add a meta/link tag there, mirror it here for riders. %>
+    <title><%= content_for(:title) || "PizzApp" %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Cc Sdd Delivery">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <div class="rider-shell">
+      <header class="rider-topbar">
+        <%= link_to rider_orders_path, class: "rider-topbar__brand" do %>
+          <span class="rider-topbar__logo">🍕</span> PizzApp
+        <% end %>
+        <div class="rider-topbar__user">
+          <span class="rider-topbar__avatar"><%= current_user.email.first(2).upcase %></span>
+          <%= link_to "Salir", destroy_user_session_path,
+                data: { turbo_method: :delete }, class: "rider-topbar__logout" %>
+        </div>
+      </header>
+
+      <main class="rider-shell__main">
+        <%= render "shared/flashes" %>
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>
