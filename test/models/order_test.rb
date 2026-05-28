@@ -97,6 +97,7 @@ class OrderTest < ActiveSupport::TestCase
     assert_enqueued_with(job: Turbo::Streams::BroadcastStreamJob) do
       assert order.mark_en_route!
     end
+    assert_equal "manager_orders", enqueued_jobs.last[:args].first
   end
 
   test "mark_delivered! encola un broadcast refresh al canal manager_orders" do
@@ -108,6 +109,7 @@ class OrderTest < ActiveSupport::TestCase
     assert_enqueued_with(job: Turbo::Streams::BroadcastStreamJob) do
       assert order.mark_delivered!
     end
+    assert_equal "manager_orders", enqueued_jobs.last[:args].first
   end
 
   test "assign_to! no encola broadcast (no es una transición del rider)" do
