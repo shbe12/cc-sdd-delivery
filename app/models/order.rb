@@ -10,6 +10,7 @@ class Order < ApplicationRecord
 
   geocoded_by :address
   after_validation :geocode, if: -> { address.present? && address_changed? }
+  after_update_commit :broadcast_rider_transition, if: :rider_transition?
 
   def total
     order_items.reject(&:marked_for_destruction?).sum(&:subtotal)
@@ -39,5 +40,13 @@ class Order < ApplicationRecord
     return if order_items.reject(&:marked_for_destruction?).any?
 
     errors.add(:base, "must have at least one item")
+  end
+
+  def rider_transition?
+    saved_change_to_status? && %w[en_route delivered].include?(status)
+  end
+
+  def broadcast_rider_transition
+    broadcast_refresh_later_to "manager_orders"
   end
 end

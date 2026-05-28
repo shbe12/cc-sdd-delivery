@@ -1,5 +1,11 @@
 <% content_for :title, "Tablero de órdenes" %>
 
+<% content_for :head do %>
+  <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+<% end %>
+
+<%= turbo_stream_from "manager_orders" %>
+
 <div class="board">
   <header class="board__top">
     <div>

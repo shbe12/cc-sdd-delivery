@@ -1,6 +1,8 @@
 require "test_helper"
 
 class OrderTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
+
   def valid_attrs
     { recipient_name: "Ana Gómez", recipient_phone: "5512345678", address: "Colima 143, CDMX" }
   end
@@ -85,6 +87,46 @@ class OrderTest < ActiveSupport::TestCase
     assert order.reload.en_route?
     assert order.mark_delivered!
     assert order.reload.delivered?
+  end
+
+  test "mark_en_route! encola un broadcast refresh al canal manager_orders" do
+    rider = User.create!(email: "broadcast1@example.com", password: "password123", role: :rider)
+    order = create_order
+    order.assign_to!(rider)
+
+    assert_enqueued_with(job: Turbo::Streams::BroadcastStreamJob) do
+      assert order.mark_en_route!
+    end
+    assert_equal "manager_orders", enqueued_jobs.last[:args].first
+  end
+
+  test "mark_delivered! encola un broadcast refresh al canal manager_orders" do
+    rider = User.create!(email: "broadcast2@example.com", password: "password123", role: :rider)
+    order = create_order
+    order.assign_to!(rider)
+    order.mark_en_route!
+
+    assert_enqueued_with(job: Turbo::Streams::BroadcastStreamJob) do
+      assert order.mark_delivered!
+    end
+    assert_equal "manager_orders", enqueued_jobs.last[:args].first
+  end
+
+  test "assign_to! no encola broadcast (no es una transición del rider)" do
+    rider = User.create!(email: "broadcast3@example.com", password: "password123", role: :rider)
+    order = create_order
+
+    assert_no_enqueued_jobs(only: Turbo::Streams::BroadcastStreamJob) do
+      assert order.assign_to!(rider)
+    end
+  end
+
+  test "update sin cambio de status no encola broadcast" do
+    order = create_order
+
+    assert_no_enqueued_jobs(only: Turbo::Streams::BroadcastStreamJob) do
+      order.update!(recipient_phone: "5599998888")
+    end
   end
 
   private
